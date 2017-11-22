@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>	
+	<parent>
+        <groupId>com.bms.eai</groupId>
+        <artifactId>bms-common</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../../bms-common/pom.xml</relativePath>
+    </parent>
+	
+	<!-- <groupId>com.bms.eai</groupId> -->
+	<artifactId>bms-models</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>BMS EAI :: ************ MODELS ************ </name>
+	
+	<modules>
+		<module>model-accounts-details</module>
+		<module>model-agm-details</module>
+		<module>model-assignments-details</module>
+		<module>model-attendance-details</module>
+		<module>model-call-log-details</module>
+		<module>model-correspondence-letter-details</module>		
+		<module>model-document-center-details</module> 
+		<module>model-facilities-details</module> 
+		<module>model-human-resource-details</module>		
+		<module>model-incident-details</module>
+		<module>model-inventory-details</module>
+		<module>model-jmb-mc-details</module>
+		<module>model-kpa-details</module>
+		<module>model-meeting-details</module>
+		<module>model-parameter-settings</module>		
+		<module>model-property-details</module> 
+		<module>model-quotation-center-details</module> 
+		<module>model-sop-assignments-details</module>
+		<module>model-todo-list</module>
+		<module>model-unit-details</module>
+		<module>model-utility-bill-details</module>		
+	</modules>	
+</project>

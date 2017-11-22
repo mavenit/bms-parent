@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>	
+	<parent>
+        <groupId>com.bms.eai</groupId>
+        <artifactId>bms-common</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../../bms-common/pom.xml</relativePath>
+    </parent>	
+	
+	<artifactId>bms-modules</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>BMS EAI :: ************ REST MODULES ************ </name>
+	
+	<modules>
+		<module>accounts-details</module>
+		<module>agm-details</module>
+		<module>assignments-details</module>
+		<module>attendance-details</module>
+		<module>call-log-details</module>
+		<module>correspondence-letter-details</module>		
+		<module>document-center-details</module> 
+		<module>facilities-details</module> 
+		<module>human-resource-details</module>		
+		<module>incident-details</module>
+		<module>inventory-details</module>
+		<module>jmb-mc-details</module>
+		<module>kpa-details</module>
+		<module>meeting-details</module>
+		<module>parameter-settings</module>		
+		<module>property-details</module> 
+		<module>quotation-center-details</module> 
+		<module>sop-assignments-details</module>
+		<module>todo-list</module>
+		<module>unit-details</module>
+		<module>utility-bill-details</module>		
+	</modules>	
+</project>
