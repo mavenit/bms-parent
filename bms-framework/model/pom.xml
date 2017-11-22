@@ -36,6 +36,7 @@
 		<module>model-sop-assignments-details</module>
 		<module>model-todo-list</module>
 		<module>model-unit-details</module>
-		<module>model-utility-bill-details</module>		
+		<module>model-utility-bill-details</module>	
+		<module>model-common</module>
 	</modules>	
 </project>

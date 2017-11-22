@@ -18,9 +18,7 @@
     <packaging>war</packaging>
 
     <name>BMS EAI :: WEB-WAR</name>
-    <description>
-		Configure the bms boot sarter
-    </description>
+    <description>Configure the bms boot starter </description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -30,6 +30,11 @@
             <artifactId>bms-crypt</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bms-model-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 <!-- End of Internal Dependency -->  
         <dependency>
             <groupId>org.springframework</groupId>
