@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bmsModules>
+    <propertyDetails id="PD01">
+        <pdServerDetails id="PD01_SERVERDET">
+            <hostName>localhost</hostName>
+            <portNo>8080</portNo>
+        </pdServerDetails>
+        <propertyMaster id="PD01_PM01">
+            <pmBusinessApiConfig>
+                <pmOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </pmBusinessApiConfig>
+        </propertyMaster>
+        <propertyBlockDetails id="PD01_PBD01">
+            <pbdBusinessApiConfig>
+                <pbdOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </pbdBusinessApiConfig>
+        </propertyBlockDetails>
+        <propertyParkingBaySetup id="PD01_PPBS01">
+            <ppbsBusinessApiConfig>
+                <ppbsOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </ppbsBusinessApiConfig>
+        </propertyParkingBaySetup>
+        <propertyFacilitiesSetup id="PD01_PFS01">
+            <pfsBusinessApiConfig>
+                <pfsOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </pfsBusinessApiConfig>
+        </propertyFacilitiesSetup>
+        <propertyFixedAnnualRecurrings id="PD01_PFAR01">
+            <pfarBusinessApiConfig>
+                <pfarOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </pfarBusinessApiConfig>
+        </propertyFixedAnnualRecurrings>
+        <propertyFinancialYear id="PD01_PFY01">
+            <pfyBusinessApiConfig>
+                <pfyOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </pfyBusinessApiConfig>
+        </propertyFinancialYear>
+        <propertyServiceProvider id="PD01_PSP01">
+            <pspBusinessApiConfig>
+                <pspOperations create="01" update="01" delete="01" loadall="01" loadById="01"/>
+            </pspBusinessApiConfig>
+        </propertyServiceProvider>
+        <propertyAsset id="PD01_PA01">
+            <paBusinessApiConfig>
+                <paOperations create="01" update="01" delete="00" loadall="01" loadById="01" schedule="01" />
+            </paBusinessApiConfig>
+        </propertyAsset>
+    </propertyDetails>
+    <humanResourceDetails id="HRD01" />
+    
+    <commonModule id="CM01">
+		 <cmServerDetails id="CM01_SERVERDET">
+            <hostName>localhost</hostName>
+            <portNo>8080</portNo>
+        </cmServerDetails>
+        <state id="CM01_STATE">
+            <stateBusinessApiConfig>
+                <stateOperations create="01" update="01" delete="00" loadall="01" loadById="01" />
+            </stateBusinessApiConfig>
+        </state>
+        <country id="CM01_COUNTRY">
+            <countryBusinessApiConfig >
+                <countryOperations create="01" update="01" delete="00" loadall="01" loadById="01" />
+            </countryBusinessApiConfig>
+        </country>
+        <propType id="CM01_PROPTYPE">
+            <propTypeBusinessApiConfig>
+                <propTypeOperations create="01" update="01" delete="00" loadall="01" loadById="01" />
+            </propTypeBusinessApiConfig>
+        </propType>
+    </commonModule>   
+     
+</bmsModules>

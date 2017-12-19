@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.bms.eai</groupId>
+	<artifactId>bms-portal-parent</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>BMS EAI :: ************ PORTAL ************ </name>	
+
+	<properties>
+    	<maven.compiler.version>3.2</maven.compiler.version>
+		<maven.war.version>2.5</maven.war.version>
+		<maven.dependency.version>2.9</maven.dependency.version>
+    	<war.name>bms-portal</war.name>
+	    <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>5.0.2.RELEASE</spring.version> <!-- 5.0.2.RELEASE 4.1.6.RELEASE -->
+        <spring.security.version>4.2.3.RELEASE</spring.security.version> <!-- 4.0.1.RELEASE -->	 	
+        <jstl.version>1.2</jstl.version>
+        <junit-version>4.12</junit-version>
+        <javax.servlet.version>3.0.1</javax.servlet.version>
+        <org.slf4j-version>1.7.7</org.slf4j-version>  
+		<org.log4j-version>1.2.16</org.log4j-version>
+		<apache.tiles.version>3.0.5</apache.tiles.version>		 
+        <commons-lang.version>3.4</commons-lang.version>
+        <commons-collections.version>4.0</commons-collections.version>
+        <jasypt.version>1.9.2</jasypt.version>
+        <jasypt.springsecurity.version>1.9.0</jasypt.springsecurity.version>
+        <org.bouncycastle.version>1.46</org.bouncycastle.version>
+        <jdk.version>1.8</jdk.version>
+    </properties>
+
+	<modules>
+		<module>control</module>
+		<module>app</module>
+		<module>sdk</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hamcrest</groupId>
+					<artifactId>hamcrest-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+    
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
+
+</project>
