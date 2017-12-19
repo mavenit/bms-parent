@@ -1,6 +1,7 @@
 package com.bms.eai.common.model.core;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,7 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bms.eai.cmn.error.ServiceException;
 import com.bms.eai.cmn.error.support.ServiceExceptionHelper;
 import com.bms.eai.common.model.support.FindByPropertyValueSpecifications;
+import com.bms.eai.constants.CmnConstants;
 import com.bms.eai.error.codes.FrameworkErrorCodes;
+import com.bms.eai.lib.DateUtils;
 import com.bms.eai.lib.WildcardValueHelper;
 
 /**
@@ -118,8 +121,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	public T update(ID id, T entity) throws ServiceException {
 		try {
             T existing = getRepository().findOne(id);
-            if (existing != null && !existing.isDeleted()) {
-            //if (existing != null) {
+            if(existing != null && !existing.isDeleted()) {
                 existing.copyUpdateFieldsFrom(entity);
                 preUpdate(existing, entity);
                 T updated = getRepository().saveAndFlush(existing);
@@ -138,7 +140,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	public void delete(ID id) throws ServiceException {
 		try {
             T existing = getRepository().findOne(id);
-            if (existing != null && !existing.isDeleted()) {
+            if(existing != null && !existing.isDeleted()) {
            // if (existing != null) {
                 preDelete(id);
                 existing.setDeleted(true);
@@ -219,7 +221,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
     }
     
     protected void preAdd(T entity) throws Exception {
-
+    	//entity.setId(this.generateRequestId());
     }
 
     protected void postAdd(T added) throws Exception {
@@ -255,5 +257,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
         throw new ServiceException(FrameworkErrorCodes.SEARCH_NOT_SUPPORTED_ERROR, entityName);
     }
 	
-	
+    private String generateRequestId(){
+		return DateUtils.format(new Date(), CmnConstants.GEN_REQID_FORMAT);
+	}
 }

@@ -15,7 +15,8 @@
 	<name>BMS EAI :: ************ REST MODULES ************ </name>
 	
 	<modules>
-		<module>accounts-details</module>
+		<module>property-details</module> 
+		<!--module>accounts-details</module>
 		<module>agm-details</module>
 		<module>assignments-details</module>
 		<module>attendance-details</module>
@@ -30,11 +31,10 @@
 		<module>kpa-details</module>
 		<module>meeting-details</module>
 		<module>parameter-settings</module>		
-		<module>property-details</module> 
 		<module>quotation-center-details</module> 
 		<module>sop-assignments-details</module>
 		<module>todo-list</module>
 		<module>unit-details</module>
-		<module>utility-bill-details</module>		
+		<module>utility-bill-details</module-->		
 	</modules>	
 </project>

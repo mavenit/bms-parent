@@ -13,7 +13,8 @@
 		<module>bms-common</module>		
 		<module>bms-framework</module>
 		<module>bms-modules</module>
-		<module>bms-web</module>
+		<!--module>bms-security</module-->
+		<!--module>bms-portal</module-->
 	</modules>
 	
 	<!--build> <module>bms-be-war</module> <module>bms-be</module>	

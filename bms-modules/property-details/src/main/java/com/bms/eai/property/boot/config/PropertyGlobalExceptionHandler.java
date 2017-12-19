@@ -1,7 +1,8 @@
-package com.bms.eai.property.be.boot.config;
+package com.bms.eai.property.boot.config;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,7 +48,7 @@ public class PropertyGlobalExceptionHandler {
 		return new ErrorInfo("error.write.response", e.getMessage(), "error.write.response");
 	}
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
    @ExceptionHandler(HttpMessageNotReadableException.class)
    @ResponseBody
    public ErrorInfo handleDeserializationError(HttpMessageNotReadableException oriEx)
@@ -61,7 +62,7 @@ public class PropertyGlobalExceptionHandler {
        }
    }
 	
-	@ResponseStatus(HttpStatus.FORBIDDEN)
+   @ResponseStatus(HttpStatus.FORBIDDEN)
    @ExceptionHandler(AccessDeniedException.class)
    @ResponseBody
    public ErrorInfo handleAccessDeniedError(AccessDeniedException e)
@@ -69,24 +70,40 @@ public class PropertyGlobalExceptionHandler {
        log.error(e.getMessage(), e);
        return new ErrorInfo("error.access.denied", e.getMessage(), "error.access.denied");
    }
-	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+   
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
    @ExceptionHandler(MethodArgumentNotValidException.class)
    @ResponseBody
-   public ErrorInfo handleValidationError(MethodArgumentNotValidException e)
-           throws Exception {
+   public ErrorInfo handleValidationError(MethodArgumentNotValidException e) throws Exception {
+       BindingResult result = e.getBindingResult();
+       List<FieldError> errors = result.getFieldErrors();
+       List<Object> errorCodes =  new ArrayList<Object>(errors.size());
+       List<Object> args = new ArrayList<Object>();
+       errors.forEach(error->{
+    	   	Object[] obja = error.getArguments();
+    	   	for(Object obj : obja) {args.add(obj);}
+    	   	errorCodes.add(this.processFieldError(error,args.get(1)).concat(" ["+error.getField()+":"+error.getRejectedValue().toString()+"]"));
+    	   	args.clear();
+       });
+       return new ErrorInfo("error.validation.failed", e.getMessage(), "error.validation.failed", errorCodes);
+   }
+	
+   /*@ResponseStatus(HttpStatus.BAD_REQUEST)
+   @ExceptionHandler(MethodArgumentNotValidException.class)
+   @ResponseBody
+   public ErrorInfo handleValidationError(MethodArgumentNotValidException e) throws Exception {
        BindingResult result = e.getBindingResult();
        List<ObjectError> errors = result.getAllErrors();
        Object[] errorCodes = new String[errors.size()];
        int i = 0;
-       for (ObjectError error : errors) {
+       for(ObjectError error : errors) {
            String[] codes = error.getCodes();
            errorCodes[i++] = codes[codes.length - 1];
        }
        return new ErrorInfo("error.validation.failed", e.getMessage(), "error.validation.failed", errorCodes);
-   }
+   }*/
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
    @ExceptionHandler(IllegalArgumentException.class)
    @ResponseBody
    public ErrorInfo handleIllegalArgumentException(IllegalArgumentException e) throws IOException {
@@ -100,7 +117,7 @@ public class PropertyGlobalExceptionHandler {
 	   return handleStandardException(e, "error.unsupported.operation");
 	}
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
    @ExceptionHandler(InvalidRequestException.class)
    @ResponseBody
    public ErrorInfo handleInvalidRequestException(InvalidRequestException e) throws IOException {
@@ -130,7 +147,22 @@ public class PropertyGlobalExceptionHandler {
    public ErrorInfo handleOtherError(Exception e) throws IOException {
        return handleStandardException(e, "error.unknown");
    }
-
+   
+   private String processFieldError(FieldError error,Object... args) {
+	    if (error != null) {
+	      return errorMessageSourceHelper.getMessage(error.getDefaultMessage(),args);
+	    }
+	    return null;
+  }
+   
+   @SuppressWarnings("unused")
+   private String processFieldError(FieldError error) {
+	    if (error != null) {
+	      return errorMessageSourceHelper.getMessage(error.getDefaultMessage());
+	    }
+	    return null;
+   }
+   
    private ErrorInfo handleStandardException(Exception e, String defaultErrorCode) {
        String message = e.getMessage();
        log.error(message, e);

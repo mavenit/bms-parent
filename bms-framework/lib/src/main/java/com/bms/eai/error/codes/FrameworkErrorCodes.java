@@ -8,6 +8,12 @@ public class FrameworkErrorCodes {
 
 	/**
      * Message:
+     * Error getting attachment by linkid {0}. Cause: {1}.
+     */
+    public static final String GET_ATTACHMENT_BY_LINKID_ERROR = "AT003";
+	
+	/**
+     * Message:
      * Error getting page for entity {0}. Cause: {1}.
      */
     public static final String GET_PAGE_ERROR = "FW001";

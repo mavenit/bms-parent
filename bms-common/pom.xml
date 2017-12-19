@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
         <relativePath/>
     </parent>
     <groupId>com.bms.eai</groupId>
@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 	<name>BMS EAI :: COMMON</name>
 	
-    <properties>
+	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.dependency.version>2.9</maven.dependency.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -24,7 +24,7 @@
     </properties>
 
     <dependencyManagement>		  
-     <dependencies>			
+     <dependencies>			 
          <dependency>
              <groupId>org.hibernate.javax.persistence</groupId>
              <artifactId>hibernate-jpa-2.1-api</artifactId>

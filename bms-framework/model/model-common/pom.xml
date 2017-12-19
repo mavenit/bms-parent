@@ -35,6 +35,11 @@
             <artifactId>bms-exception</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bms-model-property-details</artifactId>
+            <version>${project.version}</version>
+        </dependency> -->
 <!-- End of Internal Dependency -->  
         <dependency>
             <groupId>org.springframework</groupId>
@@ -89,6 +94,15 @@
             <artifactId>hibernate-jpa-2.1-api</artifactId>
         </dependency>
         <dependency>
+	        <groupId>org.hibernate</groupId>
+	        <artifactId>hibernate-validator</artifactId>
+    	</dependency>
+        <!-- <dependency>
+		    <groupId>javax.persistence</groupId>
+		    <artifactId>persistence-api</artifactId>
+		    <version>1.0.2</version>
+		</dependency> -->
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
@@ -132,11 +146,10 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
         </dependency>
-        
-        <dependency>
+       <!--  <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -169,6 +182,10 @@
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
             </exclusions>
             <scope>test</scope>

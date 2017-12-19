@@ -1,4 +1,4 @@
-package com.bms.eai.property.be.boot.config;
+package com.bms.eai.property.boot.config;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -61,6 +61,17 @@ public class PropertySpringConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public HandlerInstantiator handlerInstantiator() {
 	   return new SpringHandlerInstantiator(appCtx.getAutowireCapableBeanFactory());
+	}
+	
+	@Bean
+	public ObjectMapper objectMapper() {
+	   ObjectMapper objectMapper = new ObjectMapper();
+	   objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	   objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+	   objectMapper.configure(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS, false);
+	   objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
+	   objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+	   return objectMapper;
 	}
 	
 	/*@Bean

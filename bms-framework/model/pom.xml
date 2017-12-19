@@ -16,7 +16,9 @@
 	<name>BMS EAI :: ************ MODELS ************ </name>
 	
 	<modules>
-		<module>model-accounts-details</module>
+		<module>model-property-details</module>
+		<module>model-common</module>
+		<!--module>model-accounts-details</module>
 		<module>model-agm-details</module>
 		<module>model-assignments-details</module>
 		<module>model-attendance-details</module>
@@ -30,13 +32,11 @@
 		<module>model-jmb-mc-details</module>
 		<module>model-kpa-details</module>
 		<module>model-meeting-details</module>
-		<module>model-parameter-settings</module>		
-		<module>model-property-details</module> 
+		<module>model-parameter-settings</module>		 
 		<module>model-quotation-center-details</module> 
 		<module>model-sop-assignments-details</module>
 		<module>model-todo-list</module>
 		<module>model-unit-details</module>
-		<module>model-utility-bill-details</module>	
-		<module>model-common</module>
+		<module>model-utility-bill-details</module-->	
 	</modules>	
 </project>

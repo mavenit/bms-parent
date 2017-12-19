@@ -10,7 +10,5 @@ import javax.persistence.criteria.Predicate;
  *
  */
 public interface PropertyPredicateBuilder {
-
 	Predicate build(From<?, ?> from, CriteriaQuery<?> query, CriteriaBuilder cb);
-	
 }

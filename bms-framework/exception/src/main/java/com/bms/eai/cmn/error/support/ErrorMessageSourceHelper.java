@@ -24,6 +24,14 @@ public class ErrorMessageSourceHelper implements MessageSourceAware  {
         }
     }
     
+    public String getMessage(String errorCode) {
+        try {
+        	return messageSource.getMessage(errorCode,null, resolveLocale());
+        } catch (NoSuchMessageException e) {
+            return null;
+        }
+    }
+    
     private Locale resolveLocale() {
     	 return DEFAULT_LOCALE;
     }

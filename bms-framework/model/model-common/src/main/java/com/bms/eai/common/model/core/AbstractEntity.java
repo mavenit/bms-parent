@@ -6,15 +6,16 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.FilterDef;
 
+import com.bms.eai.lib.DateUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.bms.eai.lib.DateUtils;
 
 /**
  * @author kul_sudhakar
@@ -27,7 +28,7 @@ import com.bms.eai.lib.DateUtils;
         defaultCondition = AbstractEntity.NON_DELETED_CONDITION
 )
 @MappedSuperclass
-public abstract class AbstractEntity <T extends AbstractEntity, ID extends Serializable> implements Serializable {
+public abstract class AbstractEntity <T extends AbstractEntity, ID extends Serializable> /*extends Auditable<T>*/ implements Serializable {
 
 	private static final long serialVersionUID = -9032889008241950269L;
 	public static final String NON_DELETED_FILTER_NAME = "non-deleted";
@@ -69,6 +70,8 @@ public abstract class AbstractEntity <T extends AbstractEntity, ID extends Seria
 
 	protected abstract ID getId();
 	
+	protected abstract void setId(ID id);
+	
 	protected abstract void doCopyUpdateFieldsFrom(T fromEntity);
 
 	/**
@@ -90,13 +93,20 @@ public abstract class AbstractEntity <T extends AbstractEntity, ID extends Seria
 	 * This will set the updatedBy to the currently logged in user and updateTime to
 	 * current time.
 	 */
-	  
 	 
 	 @PreUpdate 
 	 public void preUpdate() { 
 	 	this.setUpdateDt(DateUtils.now());
 	 	String updatedBy = getCurrentUsername();
 	 	this.setUpdateBy(updatedBy); 
+	 }
+	 
+	 @PreRemove 
+	 public void preDelete() { 
+	 	this.setDeleted(true);
+	 	this.setDeleted_dt(DateUtils.now());
+	 	String deletedBy = getCurrentUsername();
+	 	this.setDeleted_by(deletedBy);
 	 }
 	
     public boolean isDeleted() {
@@ -107,7 +117,6 @@ public abstract class AbstractEntity <T extends AbstractEntity, ID extends Seria
         this.deleted = deleted;
     }
 	    
-
 	public Date getCreateDt() {
 		return createDt;
 	}
@@ -148,11 +157,27 @@ public abstract class AbstractEntity <T extends AbstractEntity, ID extends Seria
 		doCopyUpdateFieldsFrom(fromEntity);
 	}
 
-	   protected String getCurrentUsername() {
-		    String currentUsername = "EVENT-MODULE";		     
-		    return currentUsername;
+	protected String getCurrentUsername() {
+	    String currentUsername = "EVENT-MODULE";		     
+	    return currentUsername;
 	} 
 	
+	public String getDeleted_by() {
+		return deleted_by;
+	}
+
+	public void setDeleted_by(String deleted_by) {
+		this.deleted_by = deleted_by;
+	}
+
+	public Date getDeleted_dt() {
+		return deleted_dt;
+	}
+
+	public void setDeleted_dt(Date deleted_dt) {
+		this.deleted_dt = deleted_dt;
+	}
+
 	/**
 	 * Compares the ID value as per returned by the getId() method implemented by
 	 * the actual entity class.

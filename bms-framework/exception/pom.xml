@@ -11,6 +11,7 @@
     </parent>
 	
 	<artifactId>bms-exception</artifactId>
+	 
 	<packaging>jar</packaging>
 	<name>BMS EAI :: EXCEPTION</name>	
 	
