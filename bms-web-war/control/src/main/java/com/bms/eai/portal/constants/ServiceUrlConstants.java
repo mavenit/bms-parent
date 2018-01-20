@@ -6,7 +6,7 @@ package com.bms.eai.portal.constants;
  */
 public class ServiceUrlConstants {
 
-private static final String BE_HOSTIP = "http://localhost:8080";
+	private static final String BE_HOSTIP = "http://localhost:8080";
 	
 	//public static final String INSERT = "INSERT";
 	

@@ -17,7 +17,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -34,7 +33,7 @@ import com.bms.eai.property.boot.config.PropertySpringConfig;
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableAutoConfiguration
-@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.bms.eai")
 @EnableJpaRepositories(basePackages = {"com.bms.eai.property.model.repository","com.bms.eai.common.model.repository"})
 @EntityScan(basePackages = {"com.bms.eai.property.model.entity","com.bms.eai.common.model.entity"})

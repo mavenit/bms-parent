@@ -11,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -18,6 +20,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import com.bms.eai.common.lib.ApiConstants;
 import com.bms.eai.common.lib.JsonApiUtil;
 import com.bms.eai.common.lib.ResourcePathConstants;
+import com.bms.eai.module.beans.FileMessageResource;
 import com.bms.eai.module.beans.JsonResponseBean;
 import com.bms.eai.module.beans.RequestDetails;
 
@@ -25,7 +28,7 @@ import com.bms.eai.module.beans.RequestDetails;
  * @author kul_sudhakar
  *
  */
-public abstract class AbstractModuleConfig<T,V> extends AbstractRestTemplate implements ApiConstants,ResourcePathConstants {
+public abstract class AbstractModuleConfig<T extends AbstractSdkEntity,V extends AbstractSdkEntity> extends AbstractRestTemplate implements ApiConstants,ResourcePathConstants {
 
 	protected Class<T> requestDtoClass;
 	
@@ -38,45 +41,52 @@ public abstract class AbstractModuleConfig<T,V> extends AbstractRestTemplate imp
 		this.responseDtoClass =(Class<V>)((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 	}
 	
-	protected V execute(RequestDetails requestDetails, T data, ResponseErrorHandler errorHandler,
+	protected V execute(boolean fileUpload,RequestDetails requestDetails, T data, ResponseErrorHandler errorHandler,
 						Class<V> genericClass) throws ResourceAccessException, Exception {
 		
-		super.setErrorHandler(errorHandler);
-		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
-		requestHeaders.setContentType(new MediaType("application","json"));
-		HttpEntity<T> entity = new HttpEntity<T>(data, requestHeaders);
+		logger.info("[COMES TO EXCUTE T-data :"+data+"]");
 		ResponseEntity<V> response = null;
-		if(requestDetails!=null && StringUtils.hasText(requestDetails.getUriPathVariable())) {
-			response = super.exchange(requestDetails.getUrl(), 
-									  requestDetails.getRequestType(),
-		 							  entity, 
-		 							  responseDtoClass,
-		 							  requestDetails.getUriPathVariable());
+		HttpHeaders requestHeaders = new HttpHeaders();
+		super.setErrorHandler(errorHandler);
+		
+		if(fileUpload && requestDetails.getFileUploadDetails()!=null) {
+			
+			 requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
+			 requestHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+			 requestHeaders.setContentDispositionFormData("message", null);
+			 
+			 MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
+			 //bodyMap.add("file", new FileMessageResource(FileUtils.readFileToByteArray(new File("d:/DellLaptop.pdf")), "DellLaptop.pdf"));
+			 bodyMap.add("file", new FileMessageResource(requestDetails.getFileUploadDetails().getBytes(),requestDetails.getFileUploadDetails().getOriginalFilename()));
+			 bodyMap.add("reqJson", data);
+			 HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(bodyMap, requestHeaders);
+		     response = super.exchange(requestDetails.getUrl(), 
+									   requestDetails.getRequestType(),
+									   entity, 
+									   responseDtoClass);
+		} else {
+			requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
+			requestHeaders.setContentType(new MediaType("application","json"));
+			
+			HttpEntity<T> entity = new HttpEntity<T>(data, requestHeaders);
+			if(requestDetails!=null && StringUtils.hasText(requestDetails.getUriPathVariable())) {
+				logger.info("[111 requestDetails.getUriPathVariable() :"+requestDetails.getUriPathVariable()+"]");
+				response = super.exchange(requestDetails.getUrl(), 
+										  requestDetails.getRequestType(),
+			 							  entity, 
+			 							  responseDtoClass,
+			 							  requestDetails.getUriPathVariable());
+			}else if(requestDetails!=null && !StringUtils.hasText(requestDetails.getUriPathVariable())) {
+				logger.info("[222 requestDetails.getUriPathVariable() :"+requestDetails.getUriPathVariable()+"]");
+				response = super.exchange(requestDetails.getUrl(), 
+										  requestDetails.getRequestType(),
+			 							  entity, 
+			 							  responseDtoClass);
+			}
+			
 		}
 		
-		if(requestDetails!=null && !StringUtils.hasText(requestDetails.getUriPathVariable())) {
-			response = super.exchange(requestDetails.getUrl(), 
-									  requestDetails.getRequestType(),
-		 							  entity, 
-		 							  responseDtoClass);
-		}
 		return (response!=null&&response.getBody()!=null)?response.getBody():null;
-	}
-	
-	protected ResponseEntity<JsonNode> checkServiceEnable(String status) {
-		
-		if(!StringUtils.hasText(status)) {
-				return this.generateJsonMsg(this.emptyStatus());
-		}else if(StringUtils.hasText(status) && StringUtils.pathEquals(status, ApiConstants.DISABLE)) {
-				return this.generateJsonMsg(this.disableService());
-		}else if(StringUtils.hasText(status) && !StringUtils.pathEquals(status, ApiConstants.ENABLE)) {
-				return this.generateJsonMsg(this.invalidStatus());
-		}else if(StringUtils.hasText(status) && StringUtils.pathEquals(status, ApiConstants.ENABLE)) {
-				return this.generateJsonMsg(this.enableService());
-		}else {
-				return this.generateJsonMsg(this.unknownError());
-		}
 	}
 	
 	protected ResponseEntity<JsonNode> generateJsonMsg(final JsonResponseBean message) {
@@ -87,7 +97,7 @@ public abstract class AbstractModuleConfig<T,V> extends AbstractRestTemplate imp
 		return new ResponseEntity<JsonNode>(respNode.get(), HttpStatus.OK);
 	}
 	
-	private JsonResponseBean enableService() {
+	protected JsonResponseBean enableService() {
 		return new JsonResponseBean(SUCCESS_STATUS_CODE,new StringBuilder().append(ApiConstants.ENABLE).toString());
 	}
 	
@@ -97,17 +107,17 @@ public abstract class AbstractModuleConfig<T,V> extends AbstractRestTemplate imp
 	  			  .append(ApiConstants.CONTACT_ADMIN).toString());
 	}
 	
-	private JsonResponseBean unknownError() {
+	protected JsonResponseBean unknownError() {
 		return new JsonResponseBean(ERROR_STATUS_CODE,new StringBuilder().append(ApiConstants.UNKNOWN).append(ApiConstants.SINGLE_SPACE).append(ApiConstants.ERROR)
 		  		  .append(ApiConstants.SINGLE_SPACE).append(ApiConstants.CONTACT_ADMIN).toString());
 	}
 	
-	private JsonResponseBean invalidStatus() {
+	protected JsonResponseBean invalidStatus() {
 		return new JsonResponseBean(ERROR_STATUS_CODE,new StringBuilder().append(ApiConstants.INVALID).append(ApiConstants.SINGLE_SPACE).append(ApiConstants.STATUS)
 				  .append(ApiConstants.SINGLE_SPACE).append(ApiConstants.CONTACT_ADMIN).toString());
 	}
 	
-	private JsonResponseBean disableService() {
+	protected JsonResponseBean disableService() {
 		return new JsonResponseBean(ERROR_STATUS_CODE,new StringBuilder().append(ApiConstants.SERVICE_DISABLE).append(ApiConstants.SINGLE_SPACE).append(ApiConstants.CONTACT_ADMIN).toString());
 	}
 	
@@ -119,7 +129,7 @@ public abstract class AbstractModuleConfig<T,V> extends AbstractRestTemplate imp
 		return new JsonResponseBean(ERROR_STATUS_CODE,new StringBuilder().append(ApiConstants.ERROR_RESP_MSG).append(ApiConstants.SINGLE_SPACE).append(ApiConstants.CONTACT_ADMIN).toString());
 	}
 	
-	private JsonResponseBean emptyStatus() {
+	protected JsonResponseBean emptyStatus() {
 		return new JsonResponseBean(ERROR_STATUS_CODE,new StringBuilder().append(ApiConstants.EMPTY).append(ApiConstants.SINGLE_SPACE).append(ApiConstants.STATUS)
 					.append(ApiConstants.SINGLE_SPACE).append(ApiConstants.CONTACT_ADMIN).toString());
 	}

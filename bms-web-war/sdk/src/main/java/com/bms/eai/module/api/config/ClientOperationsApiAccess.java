@@ -10,22 +10,12 @@ import javax.xml.bind.Unmarshaller;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
-import com.bms.eai.module.api.config.xml.BmsModules;
-import com.bms.eai.module.api.config.xml.CmServerDetails;
-import com.bms.eai.module.api.config.xml.CommonModule;
-import com.bms.eai.module.api.config.xml.CountryOperations;
-import com.bms.eai.module.api.config.xml.PaOperations;
-import com.bms.eai.module.api.config.xml.PbdOperations;
-import com.bms.eai.module.api.config.xml.PdServerDetails;
-import com.bms.eai.module.api.config.xml.PfarOperations;
-import com.bms.eai.module.api.config.xml.PfsOperations;
-import com.bms.eai.module.api.config.xml.PfyOperations;
-import com.bms.eai.module.api.config.xml.PmOperations;
-import com.bms.eai.module.api.config.xml.PpbsOperations;
-import com.bms.eai.module.api.config.xml.PropTypeOperations;
-import com.bms.eai.module.api.config.xml.PropertyDetails;
-import com.bms.eai.module.api.config.xml.PspOperations;
-import com.bms.eai.module.api.config.xml.StateOperations;
+import generated.BmsModules;
+import generated.CmServerDetails;
+import generated.CommonModule;
+import generated.PdServerDetails;
+import generated.PropertyDetails;
+
 
 /**
  * @author kul_sudhakar
@@ -55,42 +45,10 @@ public class ClientOperationsApiAccess implements InitializingBean {
 		this.commonModule = bmsModules.getCommonModule();
 	}
 
-	// ===============  Configure the Common Module Operations ============
+	// ===============  Configure the Property Module Operations ============
 	
 	public Optional<PdServerDetails> getPdServerDetails() {
 		return Optional.ofNullable(this.propertyDetails.getPdServerDetails());
-	}
-	
-	public Optional<PmOperations> getPropertyMasterOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyMaster().getPmBusinessApiConfig().getPmOperations());
-	}
-
-	public Optional<PbdOperations> getPropertyBlockDetailsOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyBlockDetails().getPbdBusinessApiConfig().getPbdOperations());
-	}
-
-	public Optional<PpbsOperations> getPropertyParkingBayOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyParkingBaySetup().getPpbsBusinessApiConfig().getPpbsOperations());
-	}
-
-	public Optional<PfsOperations> getPropertyFacilitiesOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyFacilitiesSetup().getPfsBusinessApiConfig().getPfsOperations());
-	}
-
-	public Optional<PfarOperations> getPropertyFixedAnnualRecurringOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyFixedAnnualRecurrings().getPfarBusinessApiConfig().getPfarOperations());
-	}
-
-	public  Optional<PfyOperations> getPropertyFinancialYearOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyFinancialYear().getPfyBusinessApiConfig().getPfyOperations());
-	}
-
-	public  Optional<PspOperations> getPropertyServiceProviderOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyServiceProvider().getPspBusinessApiConfig().getPspOperations());
-	}
-	
-	public  Optional<PaOperations> getPropertyAssetOperations() {
-		return Optional.ofNullable(this.propertyDetails.getPropertyAsset().getPaBusinessApiConfig().getPaOperations());
 	}
 	
 	// ===============  Configure the Common Module Operations ============
@@ -99,16 +57,4 @@ public class ClientOperationsApiAccess implements InitializingBean {
 		return Optional.ofNullable(this.commonModule.getCmServerDetails());
 	}
 	
-	public  Optional<StateOperations> getStateOperations() {
-		return Optional.ofNullable(this.commonModule.getState().getStateBusinessApiConfig().getStateOperations());
-	}
-	
-	public  Optional<CountryOperations> getCountryOperations() {
-		return Optional.ofNullable(this.commonModule.getCountry().getCountryBusinessApiConfig().getCountryOperations());
-	}
-	
-	public  Optional<PropTypeOperations> getPropTypeOperations() {
-		return Optional.ofNullable(this.commonModule.getPropType().getPropTypeBusinessApiConfig().getPropTypeOperations());
-	}
-
 }

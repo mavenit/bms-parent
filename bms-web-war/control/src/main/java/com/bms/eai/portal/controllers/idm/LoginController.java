@@ -84,7 +84,7 @@ private static final Logger logger = LoggerFactory.getLogger(LoginController.cla
     public ModelAndView accessDeniedPage() {  
     	logger.info("---------------accessDeniedPage"); 
     	ModelAndView mav = new ModelAndView();	
-		mav.setViewName("access_deniedpage");
+		mav.setViewName("login");
 		return mav;
     }  
     

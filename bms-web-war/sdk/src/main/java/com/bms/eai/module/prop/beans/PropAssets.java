@@ -2,6 +2,7 @@ package com.bms.eai.module.prop.beans;
 
 import java.util.Date;
 
+import com.bms.eai.module.core.AbstractSdkEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("PropAssets")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropAssets  {
+public class PropAssets extends AbstractSdkEntity  {
 
 	@JsonProperty("paName")
 	private String paName;
@@ -166,6 +167,18 @@ public class PropAssets  {
 
 	public void setParPersonIncharge(String parPersonIncharge) {
 		this.parPersonIncharge = parPersonIncharge;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

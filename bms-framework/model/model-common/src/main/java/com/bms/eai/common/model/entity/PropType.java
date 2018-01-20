@@ -3,67 +3,71 @@ package com.bms.eai.common.model.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.util.StringUtils;
+
 import com.bms.eai.common.model.core.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @SuppressWarnings("serial")
+@JsonRootName("propType")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "prop_type", uniqueConstraints = @UniqueConstraint(columnNames = "pt_type"))
-@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
-public class PropType extends AbstractEntity<PropType,String>  implements java.io.Serializable {
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class PropType extends AbstractEntity<PropType, String> implements java.io.Serializable {
 
+	@JsonProperty("id")
 	@Id
 	@Column(name = "pt_id", length = 50)
 	private String id;
-	
-	@Column(name = "pt_type", unique = true, nullable = false, length = 150)
-	private String ptType;
-	
-	@Column(name = "pt_desc", length = 65535)
-	private String ptDesc;
-	
-	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "propType")
-	private List<PropDetailsMaster> propDetailsMasters;*/
 
-	public PropType() {
+	@JsonProperty("name")
+	@Column(name = "pt_type", unique = true, nullable = false, length = 150)
+	@NotEmpty(message="empty.proptype")
+	private String name;
+
+	@JsonProperty("desc")
+	@Column(name = "pt_desc", length = 65535)
+	private String desc;
+
+	public PropType() {}
+
+	@Override
+	protected void doCopyUpdateFieldsFrom(PropType fromEntity) {
+		this.name=StringUtils.hasText(fromEntity.name)?fromEntity.name:this.name;
+		this.desc=StringUtils.hasText(fromEntity.desc)?fromEntity.desc:this.desc;
 	}
+	
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPtType() {
-		return this.ptType;
+
+	public String getDesc() {
+		return desc;
 	}
 
-	public void setPtType(String ptType) {
-		this.ptType = ptType;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
-	public String getPtDesc() {
-		return this.ptDesc;
+	public String getName() {
+		return name;
 	}
 
-	public void setPtDesc(String ptDesc) {
-		this.ptDesc = ptDesc;
-	}
-
-	/*public List<PropDetailsMaster> getPropDetailsMasters() {
-		return this.propDetailsMasters;
-	}
-
-	public void setPropDetailsMasters(List<PropDetailsMaster> propDetailsMasters) {
-		this.propDetailsMasters = propDetailsMasters;
-	}*/
-	
-	@Override
-	protected void doCopyUpdateFieldsFrom(PropType fromEntity) {
-		
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

@@ -4,7 +4,7 @@ package com.bms.eai.module.beans;
  * @author kul_sudhakar
  *
  */
-public class JsonResponseBean {
+public class JsonResponseBean extends PaginationFilter {
 
 	private String statusCode;
 	private String statusMessage;

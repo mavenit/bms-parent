@@ -2,17 +2,16 @@ package com.bms.eai.portal.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.bms.eai.portal.constants.ServiceUrlConstants;
-import com.bms.eai.portal.core.AbstractRestTemplate;
+import com.bms.eai.common.lib.JsonApiUtil;
+import com.bms.eai.module.beans.JsonResponseBean;
 import com.bms.eai.portal.lib.CmnUtil;
-import com.bms.eai.portal.lib.JsonUtil;
-import com.bms.eai.portal.model.JsonResponseBean;
 import com.bms.eai.portal.model.LoginBean;
 import com.bms.eai.portal.model.UserProfile;
 
@@ -21,7 +20,7 @@ import com.bms.eai.portal.model.UserProfile;
  *
  */
 @Component
-public class UserProfileDtoImpl extends AbstractRestTemplate implements UserProfileDto {
+public class UserProfileDtoImpl implements UserProfileDto {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserProfileDtoImpl.class);
 	
@@ -29,15 +28,16 @@ public class UserProfileDtoImpl extends AbstractRestTemplate implements UserProf
 	 public UserProfile createUser(final UserProfile userProfileBean){
 			try {
 				logger.info("Before Going to createPortalUser");
-				JsonResponseBean jrb = restTemplate.postForObject(ServiceUrlConstants.USER_PROFILE_CREATE, userProfileBean, JsonResponseBean.class);
+				JsonResponseBean jrb = new JsonResponseBean(); 
+						//restTemplate.postForObject(ServiceUrlConstants.USER_PROFILE_CREATE, userProfileBean, JsonResponseBean.class);
 				logger.info("createPortalUser [loginId :"+userProfileBean.getFullName()+"]-[createPortalUser Response :"+jrb+"]");
 				if(!CmnUtil.isObjNull(jrb) && CmnUtil.isObjNull(jrb.getStatusCode()) && (CmnUtil.isEquals(jrb.getStatusCode(), "00"))) {
 					logger.info("createPortalUser [Status message :"+jrb.getStatusMessage()+"]-[Status Code :"+jrb.getStatusCode()+"]");
-					logger.info("createPortalUser [Response message :"+jrb.getResponseObj().toString()+"]");
-					JsonNode jn = JsonUtil.toJsonNode(jrb.getResponseObj());
-					UserProfile rb=JsonUtil.fromJsonNode(jn, UserProfile.class);				
-					logger.info("createPortalUser [profile-id :"+rb.getId()+"]");
-					return rb;
+					logger.info("createPortalUser [Response message :"+jrb.getResponseBean().toString()+"]");
+					Optional<JsonNode> jn = JsonApiUtil.toJsonNode(jrb.getResponseBean());
+					Optional<UserProfile> rb=JsonApiUtil.fromJsonNode(jn.get(), UserProfile.class);				
+					logger.info("createPortalUser [profile-id :"+rb.get()+"]");
+					return rb.get();
 				}
 				return null;
 				 
@@ -56,11 +56,11 @@ public class UserProfileDtoImpl extends AbstractRestTemplate implements UserProf
 			logger.info("login [loginId :"+loginBean.getUserName()+"]-[createPortalUser Response :"+jrb+"]");
 			if(!CmnUtil.isObjNull(jrb) && !CmnUtil.isObjNull(jrb.getStatusCode()) && CmnUtil.isEquals(jrb.getStatusCode(), "00")) {
 				logger.info("login [Status message :"+jrb.getStatusMessage()+"]-[Status Code :"+jrb.getStatusCode()+"]");
-				logger.info("login [Response message :"+jrb.getResponseObj().toString()+"]");
-				JsonNode jn = JsonUtil.toJsonNode(jrb.getResponseObj());
-				UserProfile rb=JsonUtil.fromJsonNode(jn, UserProfile.class);				
-				logger.info("login [profile-id :"+rb.getId()+"]");
-				return rb;
+				logger.info("login [Response message :"+jrb.getResponseBean().toString()+"]");
+				Optional<JsonNode> jn = JsonApiUtil.toJsonNode(jrb.getResponseBean());
+				Optional<UserProfile> rb=JsonApiUtil.fromJsonNode(jn.get(), UserProfile.class);				
+				logger.info("login [profile-id :"+rb.get()+"]");
+				return rb.get();
 			}
 			return null;
 			 
@@ -84,7 +84,7 @@ public class UserProfileDtoImpl extends AbstractRestTemplate implements UserProf
 		up.setPassword("sudhakar");
 		
 		JsonResponseBean jrb = new JsonResponseBean();
-		jrb.setResponseObj(up);
+		jrb.setResponseBean(up);
 		jrb.setStatusCode("00");
 		jrb.setStatusMessage("Success");
 		

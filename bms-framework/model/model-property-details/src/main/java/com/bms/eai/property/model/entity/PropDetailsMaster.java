@@ -42,21 +42,22 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("propDetailsMaster")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonDeserialize(as = PropState.class)
 @Entity
 @Table(name = "prop_details_master", uniqueConstraints = @UniqueConstraint(columnNames = "pdm_name"))
 public class PropDetailsMaster extends AbstractEntity<PropDetailsMaster,String>  implements java.io.Serializable {
 
-	@JsonIgnore
+	@JsonProperty("id") 
 	@Id
 	@Column(name = "pdm_id", length = 50)
 	private String id;
 	
-	@JsonIgnore
+	@JsonProperty("state") 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ps_id", nullable = false)
 	private PropState propState;
 	
-	@JsonIgnore
+	@JsonProperty("propType")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pt_id", nullable = false)
 	private PropType propType;

@@ -6,6 +6,13 @@ package com.bms.eai.common.lib;
  */
 public interface ApiConstants {
 
+	public static final String PAGE_SIZE = "3";
+	public static final String AND = "&";
+	public static final String EQUAL = "=";
+	public static final String PAGE = "page";
+	public static final String SORT = "sort";
+	public static final String SIZE = "size";
+	
 	public static final String ERROR_STATUS_CODE = "99";
 	public static final String SUCCESS_STATUS_CODE = "00";
 	

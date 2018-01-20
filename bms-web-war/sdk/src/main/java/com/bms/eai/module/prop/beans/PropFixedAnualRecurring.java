@@ -2,6 +2,7 @@ package com.bms.eai.module.prop.beans;
 
 import java.util.Date;
 
+import com.bms.eai.module.core.AbstractSdkEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("PropFixedAnualRecurring")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true) 
-public class PropFixedAnualRecurring   {
+public class PropFixedAnualRecurring extends AbstractSdkEntity  {
 
 	@JsonProperty("propAnnualReminders")
 	private PropAnnualReminders propAnnualReminders;
@@ -57,6 +58,18 @@ public class PropFixedAnualRecurring   {
 
 	public void setPfarExpiryDate(Date pfarExpiryDate) {
 		this.pfarExpiryDate = pfarExpiryDate;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

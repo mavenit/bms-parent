@@ -7,14 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bms.eai.module.api.config.ClientOperationsApiAccess;
-import com.bms.eai.module.api.config.xml.CmServerDetails;
 import com.bms.eai.module.core.AbstractModuleConfig;
+import com.bms.eai.module.core.AbstractSdkEntity;
+
+import generated.CmServerDetails;
 
 /**
  * @author kul_sudhakar
  *
  */
-public abstract class AbstractCommonRestApiClient <T,V> extends AbstractModuleConfig<T,V>  {
+public abstract class AbstractCommonRestApiClient <T extends AbstractSdkEntity,V extends AbstractSdkEntity> extends AbstractModuleConfig<T,V>  {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	

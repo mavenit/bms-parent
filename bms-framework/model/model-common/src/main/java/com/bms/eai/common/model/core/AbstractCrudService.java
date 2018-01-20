@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.Table;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +56,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
     }
 	
 	@Override
+	@Lock(LockModeType.READ)
     @Transactional(readOnly = true)
 	public Page<T> getPaged(Pageable p) throws ServiceException {
 	  try {
@@ -64,6 +67,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	}
 	
 	@Override
+	@Lock(LockModeType.READ)
 	@Transactional(readOnly = true)
 	public List<T> getAll() throws ServiceException {
 		try {
@@ -74,6 +78,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	}
 	
 	@Override
+	@Lock(LockModeType.READ)
 	@Transactional(readOnly = true)
 	public T getById(ID id) throws ServiceException {
 		try {
@@ -104,6 +109,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	}
 	
 	@Override
+	@Lock(LockModeType.READ)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = ServiceException.class)
 	public List<T> addAll(List<T> entities) throws ServiceException {
 		try {
@@ -135,6 +141,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
         }
 	}
 	
+	//@Modifying
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = ServiceException.class)
 	public void delete(ID id) throws ServiceException {
@@ -168,6 +175,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	}
 	
 	@Override
+	@Lock(LockModeType.READ)
 	@Transactional(readOnly = true)
 	public long totalCount() throws ServiceException {
 		 try {
@@ -178,6 +186,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	}
 	
 	@Override
+	@Lock(LockModeType.READ)
 	@Transactional(readOnly = true)
 	public boolean exists(ID id) throws ServiceException {
 		try {
@@ -189,6 +198,7 @@ public class AbstractCrudService <T extends AbstractEntity<T,ID>, ID extends Ser
 	}
 	
 	@Override
+	@Lock(LockModeType.READ)
 	@Transactional(readOnly = true)
 	public Page<T> search(String searchTerm, Pageable p) throws ServiceException {
 		try {

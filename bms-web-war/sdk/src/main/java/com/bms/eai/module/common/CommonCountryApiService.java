@@ -1,73 +1,30 @@
 package com.bms.eai.module.common;
 
-import java.io.IOException;
-import java.util.Optional;
-
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.ResourceAccessException;
 
-import com.bms.eai.common.lib.ApiConstants;
-import com.bms.eai.common.lib.JsonApiUtil;
-import com.bms.eai.module.api.config.xml.CountryOperations;
 import com.bms.eai.module.beans.JsonResponseBean;
 import com.bms.eai.module.beans.RequestDetails;
-import com.bms.eai.module.beans.SdkBroker;
 import com.bms.eai.module.common.beans.CommonBean;
+import com.bms.eai.module.core.CommonDataAccess;
 
 /**
  * @author kul_sudhakar
  *
  */
 @Service
-public class CommonCountryApiService extends AbstractCommonRestApiClient<CommonBean,JsonResponseBean> {
+public class CommonCountryApiService extends AbstractCommonRestApiClient<CommonBean,JsonResponseBean> implements CommonDataAccess<CommonBean> {
 
-	private SdkBroker preCheckData(String screenFlag) throws JsonParseException, JsonMappingException, IOException {
-		
-		final Optional<CountryOperations> countryOperations = super.clientOperationsApiAccess.getCountryOperations();
-		
-		if(!countryOperations.isPresent()) {
-			return new SdkBroker(this.generateJsonMsg(this.unknownSchemaConfig(ApiConstants.COUNTRY)));
-		}
-		
-		ResponseEntity<JsonNode> serviceStatus = null; 
-		
-		if(StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, CREATE)){
-			serviceStatus = super.checkServiceEnable(countryOperations.get().getCreate());
-		}else if(StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, UPDATE)){
-			serviceStatus = super.checkServiceEnable(countryOperations.get().getUpdate());
-		}else if(StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, DELETE)){
-			serviceStatus = super.checkServiceEnable(countryOperations.get().getDelete());
-		}else if(StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, LOADALL)){
-			serviceStatus = super.checkServiceEnable(countryOperations.get().getLoadall());
-		}else if(StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, LOADBYID)){
-			serviceStatus = super.checkServiceEnable(countryOperations.get().getLoadById());
-		}
-		
-		if(serviceStatus == null || (serviceStatus!=null && serviceStatus.getBody() == null) ) {
-			return new SdkBroker(serviceStatus);
-		}
-		
-		Optional<JsonResponseBean> jrb = JsonApiUtil.transferToObject(serviceStatus.getBody(),JsonResponseBean.class);
-		if(!jrb.isPresent()) {
-			return new SdkBroker(this.generateJsonMsg(super.invalidResponseMessage())); 
-		}
-		return new SdkBroker(jrb.get());
-	}
-	
-	private JsonResponseBean countryOperations(String updatePropDetailsMasterId, String screenFlag,CommonBean reqJsonBean) throws ResourceAccessException, Exception {
+	private JsonResponseBean processOperations(String id, String screenFlag,CommonBean reqJsonBean) throws ResourceAccessException, Exception {
 
 		String hostName = super.getCommonModuleServerDetails().getHostName();
 		String portNo = super.getCommonModuleServerDetails().getPortNo();
 
 		StringBuilder urlBuilder = new StringBuilder();
 		urlBuilder.append(HTTP).append(hostName).append(HTTP_COLUMN).append(portNo).append(HTTP_SLASH)
-				.append(HTTP_PROP_CONTEXT_PATH).append(HTTP_SLASH);
+				.append(HTTP_STATIC_CONTEXT_PATH).append(HTTP_SLASH);
 		urlBuilder.append(API_NAME).append(HTTP_SLASH).append(API_VERSION).append(HTTP_SLASH);
 		urlBuilder.append(COUNTRY_RESOURCE_PATH).append(HTTP_SLASH);
 
@@ -76,58 +33,78 @@ public class CommonCountryApiService extends AbstractCommonRestApiClient<CommonB
 		if (StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, CREATE)) {
 				urlBuilder.append(CREATE);
 				logger.info("[CREATE {}, RESOURCE URL : {}]", new Object[] {COUNTRY_RESOURCE_PATH, urlBuilder.toString() });
-				jrb = super.execute(new RequestDetails(urlBuilder.toString(), HttpMethod.POST), reqJsonBean,
+				jrb = super.execute(false,new RequestDetails(urlBuilder.toString(), HttpMethod.POST), reqJsonBean,
 						super.generateResponseHandler(), JsonResponseBean.class);
+				
 		} else if (StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, UPDATE)) {
-				urlBuilder.append(UPDATE);
+				urlBuilder.append(UPDATE).append(HTTP_SLASH).append(id);
 				logger.info("[UPDATE {}, RESOURCE URL : {}]", new Object[] {COUNTRY_RESOURCE_PATH,urlBuilder.toString() });
-				jrb = super.execute(new RequestDetails(urlBuilder.toString(), HttpMethod.PUT, updatePropDetailsMasterId),
+				jrb = super.execute(false,new RequestDetails(urlBuilder.toString(), HttpMethod.PUT, id),
 						reqJsonBean, super.generateResponseHandler(), JsonResponseBean.class);
+				
 		} else if (StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, DELETE)) {
-				urlBuilder.append(DELETE);
+				urlBuilder.append(DELETE).append(HTTP_SLASH).append(id);
 				logger.info("[DELETE {}, RESOURCE URL : {}]", new Object[] {COUNTRY_RESOURCE_PATH,urlBuilder.toString() });
-				jrb = super.execute(new RequestDetails(urlBuilder.toString(), HttpMethod.DELETE, updatePropDetailsMasterId),
+				jrb = super.execute(false,new RequestDetails(urlBuilder.toString(), HttpMethod.DELETE, id),
 						reqJsonBean, super.generateResponseHandler(), JsonResponseBean.class);
+				
 		} else if (StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, LOADALL)) {
 				urlBuilder.append(LOADALL);
 				logger.info("[LOADALL {}, RESOURCE URL : {}]", new Object[] {COUNTRY_RESOURCE_PATH,urlBuilder.toString() });
-				jrb = super.execute(new RequestDetails(urlBuilder.toString(), HttpMethod.GET), null,
+				jrb = super.execute(false,new RequestDetails(urlBuilder.toString(), HttpMethod.GET), null,
 						super.generateResponseHandler(), JsonResponseBean.class);
+				
 		} else if (StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, LOADBYID)) {
-				urlBuilder.append(LOADBYID).append(HTTP_SLASH);
+				urlBuilder.append(LOADBYID).append(HTTP_SLASH).append(id);
 				logger.info("[LOADBYID {}, RESOURCE URL : {}]", new Object[] {COUNTRY_RESOURCE_PATH,urlBuilder.toString() });
-				jrb = super.execute(new RequestDetails(urlBuilder.toString(), HttpMethod.GET, updatePropDetailsMasterId),
+				jrb = super.execute(false,new RequestDetails(urlBuilder.toString(), HttpMethod.GET, id),
 						null, super.generateResponseHandler(), JsonResponseBean.class);
+				
+		}else if (StringUtils.hasText(screenFlag) && StringUtils.pathEquals(screenFlag, LOADBYNAME)) {
+			urlBuilder.append(LOADBYNAME).append(HTTP_SLASH).append(id);
+			logger.info("[LOADBYNAME {}, RESOURCE URL : {}]", new Object[] {COUNTRY_RESOURCE_PATH,urlBuilder.toString() });
+			jrb = super.execute(false,new RequestDetails(urlBuilder.toString(), HttpMethod.GET, id),
+					null, super.generateResponseHandler(), JsonResponseBean.class);
 		}
 		logger.info("[{}, Result JsonResponseBean :{}]", new Object[] {COUNTRY_RESOURCE_PATH,jrb });
 		return jrb;
 	}
 	
-	public ResponseEntity<JsonNode> processCountryOperations(final CommonBean reqJsonBean,
-															 final String updatePropDetailsMasterId, 
-															 final String screenFlag) throws ResourceAccessException, Exception {
-
-		SdkBroker sb = this.preCheckData(screenFlag);
-
-		ResponseEntity<JsonNode> serviceStatus = sb.getResponseEntity();
-
-		if (serviceStatus != null) {
-			return serviceStatus;
-		}
-
-		JsonResponseBean jrbean = sb.getJrbean();
-
-		if (StringUtils.hasText(jrbean.getStatusCode())
-				&& StringUtils.pathEquals(jrbean.getStatusCode(), ERROR_STATUS_CODE)) {
-			return this.generateJsonMsg(super.invalidResponseMessage());
-		} else if (StringUtils.hasText(jrbean.getStatusCode())
-				&& !StringUtils.pathEquals(jrbean.getStatusCode(), SUCCESS_STATUS_CODE)) {
-			return this.generateJsonMsg(super.invalidParseResponseMessage());
-		} else {
-			jrbean = null;
-			jrbean = this.countryOperations(updatePropDetailsMasterId, screenFlag, reqJsonBean);
-			return this.generateJsonMsg(jrbean);
-		}
+	public JsonResponseBean create(CommonBean bean) throws ResourceAccessException, Exception {
+		logger.info("SDK Create Record ......");
+		return this.processOperations(null,CREATE,bean);
 	}
+
+	public JsonResponseBean update(String updateId, CommonBean bean) throws ResourceAccessException, Exception {
+		logger.info("SDK Update Record ......");
+		return this.processOperations(updateId,UPDATE,bean);
+	}
+	
+	public JsonResponseBean loadAll() throws ResourceAccessException, Exception {
+		logger.info("SDK Load All ......");
+		return this.processOperations(null,LOADALL,null);
+	}
+
+	public JsonResponseBean load(String id) throws ResourceAccessException, Exception {
+		logger.info("SDK Load Record ......");
+		return this.processOperations(id,LOADBYID,null);
+	}
+	
+	public JsonResponseBean delete(String id) throws ResourceAccessException, Exception {
+		logger.info("SDK Load Record ......");
+		return this.processOperations(id,DELETE,null);
+	}
+	
+	public JsonResponseBean loadByName(String name) throws ResourceAccessException, Exception {
+		logger.info("SDK Load Record ......");
+		return this.processOperations(name,LOADBYNAME,null);
+	}
+
+	@Override
+	public JsonResponseBean getPage(Integer pageNumber, String fieldName) throws ResourceAccessException, Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

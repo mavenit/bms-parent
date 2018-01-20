@@ -5,13 +5,18 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
+	  <%-- <sec:csrfMetaTags/>
+	  <meta name="_csrf" content="${_csrf.token}"/> --%>
+	  <!-- default header name is X-CSRF-TOKEN -->
+	  <%-- <meta name="_csrf_header" content="${_csrf.headerName}"/> --%>
+	  
+	  <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="">
       <meta name="author" content="">
 
-    <title>Maven IT Solutions - Building Management System - Login</title>
+      <title>Maven IT Solutions - Building Management System - Login</title>
 
 	<!-- Bootstrap Core CSS -->
       <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +42,7 @@
  
 <body>
 	<div id="wrapper">	
-	  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+	   <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 		<header id="header">
 			<tiles:insertAttribute name="header" />
 		</header>
@@ -53,7 +58,6 @@
 		<footer id="footer">
 			<tiles:insertAttribute name="footer" />
 		</footer>
-	
 	</div>
 		
 		 <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -68,5 +72,21 @@
       <!-- Custom Theme JavaScript -->
       <script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
       
+       <!-- DataTables JavaScript -->
+    <%-- <script src="${pageContext.request.contextPath}/resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/datatables-responsive/dataTables.responsive.js"></script> --%>
+
+    <!-- Custom Theme JavaScript -->
+    <%-- <script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script> --%>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+   <!--  <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script> -->
 </body>
 </html>

@@ -15,6 +15,7 @@
 	<name>BMS EAI :: ************ REST MODULES ************ </name>
 	
 	<modules>
+		<module>common-details</module>
 		<module>property-details</module> 
 		<!--module>accounts-details</module>
 		<module>agm-details</module>

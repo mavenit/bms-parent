@@ -9,6 +9,8 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.bms.eai.module.api.config.ClientSdkApiConfig;
+
 /**
  * @author kul_sudhakar
  *
@@ -18,9 +20,9 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] { 				
-				//HibernateConfig.class,
 				BmsSecurityConfig.class,
-				BmsWebAppConfig.class
+				BmsWebAppConfig.class,
+				ClientSdkApiConfig.class
 			};
 	}
 	
@@ -45,7 +47,7 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
         return new Filter[] { 
         		characterEncodingFilter 
         		, securityFilterChain
-        		, new HiddenHttpMethodFilter() 
+        		//, new HiddenHttpMethodFilter()
         };
     }
 

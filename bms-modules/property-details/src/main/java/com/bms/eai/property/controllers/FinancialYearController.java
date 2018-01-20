@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bms.eai.cmn.error.ServiceException;
 import com.bms.eai.common.model.core.ICrudService;
@@ -59,7 +61,7 @@ public class FinancialYearController extends AbstractModelController<PropFinance
 
 	@PostMapping(value="${bms.resource.path.create}",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public ResponseEntity<JsonNode> processCreate(@Validated @Valid @RequestBody PropFinanceYear reqJson) throws ServiceException {
+	public ResponseEntity<JsonNode> processCreate(@Validated @Valid @RequestBody PropFinanceYear reqJson,@RequestParam("file") MultipartFile multipartFile) throws ServiceException {
 		
 		logger.info("[Before Persist PropFinanceYear Data :{}]",new Object[]{ObjectUtils.toString(reqJson, true)});
 		

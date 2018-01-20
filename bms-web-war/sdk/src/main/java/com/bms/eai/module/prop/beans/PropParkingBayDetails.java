@@ -1,5 +1,6 @@
 package com.bms.eai.module.prop.beans;
 
+import com.bms.eai.module.core.AbstractSdkEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("PropParkingBayDetails")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true) 
-public class PropParkingBayDetails  {
+public class PropParkingBayDetails extends AbstractSdkEntity {
 
 	@JsonProperty("propBlockDetails")
 	private PropBlockDetails propBlockDetails;
@@ -67,6 +68,18 @@ public class PropParkingBayDetails  {
 
 	public void setPpbdDesc(String ppbdDesc) {
 		this.ppbdDesc = ppbdDesc;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

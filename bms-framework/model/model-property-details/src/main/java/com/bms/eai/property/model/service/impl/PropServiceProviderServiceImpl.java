@@ -7,12 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bms.eai.cmn.error.ServiceException;
 import com.bms.eai.common.model.core.AbstractCrudService;
+import com.bms.eai.common.model.entity.PropAttachments;
+import com.bms.eai.common.model.service.IPropAttachmentService;
 import com.bms.eai.property.model.entity.PropAnnualReminders;
-import com.bms.eai.property.model.entity.PropAttachments;
 import com.bms.eai.property.model.entity.PropContactDetails;
 import com.bms.eai.property.model.entity.PropServiceProvider;
 import com.bms.eai.property.model.service.IPropAnnualRemindersService;
-import com.bms.eai.property.model.service.IPropAttachmentService;
 import com.bms.eai.property.model.service.IPropContactDetailsService;
 import com.bms.eai.property.model.service.IPropServiceProviderService;
 

@@ -12,8 +12,8 @@
           <li> <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a> </li>
           <li> <a href="#"><i class="fa"></i> Property Details<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
-              <li> <a href="propertydetails.html">All Properties</a> </li>
-              <li> <a href="propertysettings.html">Property Settings</a> </li>
+              <li> <a href="${pageContext.request.contextPath}/settings/pages/1">All Properties</a> </li>
+              <li> <a href="${pageContext.request.contextPath}/settings/create">Property Settings</a> </li>
               <li> <a href="blocksetup.html">Block / Street Setup</a> </li>
               <li> <a href="parkingbaysetup.html">Parking Bay Setup</a> </li>
               <li> <a href="facilitiessetup.html">Facilities Setup</a> </li>

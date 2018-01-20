@@ -4,7 +4,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="propertyDetails"/>
-        <xs:element ref="humanResourceDetails"/>
         <xs:element ref="commonModule"/>
       </xs:sequence>
     </xs:complexType>
@@ -13,14 +12,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="pdServerDetails"/>
-        <xs:element ref="propertyMaster"/>
-        <xs:element ref="propertyBlockDetails"/>
-        <xs:element ref="propertyParkingBaySetup"/>
-        <xs:element ref="propertyFacilitiesSetup"/>
-        <xs:element ref="propertyFixedAnnualRecurrings"/>
-        <xs:element ref="propertyFinancialYear"/>
-        <xs:element ref="propertyServiceProvider"/>
-        <xs:element ref="propertyAsset"/>
       </xs:sequence>
       <xs:attribute name="id" use="required" type="xs:string"/>
     </xs:complexType>
@@ -34,211 +25,10 @@
       <xs:attribute name="id" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="propertyMaster">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pmBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pmBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pmOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pmOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyBlockDetails">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pbdBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pbdBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pbdOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pbdOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyParkingBaySetup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="ppbsBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ppbsBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="ppbsOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ppbsOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyFacilitiesSetup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pfsBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pfsBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pfsOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pfsOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyFixedAnnualRecurrings">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pfarBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pfarBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pfarOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pfarOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyFinancialYear">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pfyBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pfyBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pfyOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pfyOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyServiceProvider">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pspBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pspBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="pspOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="pspOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propertyAsset">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="paBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="paBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="paOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="paOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="schedule" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="humanResourceDetails">
-    <xs:complexType>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="commonModule">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="cmServerDetails"/>
-        <xs:element ref="state"/>
-        <xs:element ref="country"/>
-        <xs:element ref="propType"/>
       </xs:sequence>
       <xs:attribute name="id" use="required" type="xs:string"/>
     </xs:complexType>
@@ -250,78 +40,6 @@
         <xs:element ref="portNo"/>
       </xs:sequence>
       <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="state">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="stateBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="stateBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="stateOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="stateOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="country">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="countryBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="countryBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="countryOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="countryOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propType">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="propTypeBusinessApiConfig"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propTypeBusinessApiConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="propTypeOperations"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="propTypeOperations">
-    <xs:complexType>
-      <xs:attribute name="create" use="required" type="xs:string"/>
-      <xs:attribute name="delete" use="required" type="xs:string"/>
-      <xs:attribute name="loadById" use="required" type="xs:string"/>
-      <xs:attribute name="loadall" use="required" type="xs:string"/>
-      <xs:attribute name="update" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="hostName" type="xs:string"/>

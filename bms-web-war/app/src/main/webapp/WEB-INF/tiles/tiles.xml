@@ -30,16 +30,22 @@
        <put-attribute name="body" value="/WEB-INF/views/pages/access_deniedpage.jsp" />  
    </definition> 
  
-   <!-- Product Page -->
-   <definition name="products" extends="base-definition">  
-       <put-attribute name="title" value="Products" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/products.jsp" />  
-   </definition>  
-      
-   <!-- Contact-us Page -->
-   <definition name="contactus" extends="base-definition">  
-       <put-attribute name="title" value="Contact Us" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/contactus.jsp" />  
-   </definition>  
+ 
+ <!-- Property Related Pages -->
+  <definition name="prop_settings_edit" extends="base-definition">  
+       <put-attribute name="title" value="Create Property Master Details" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/property/create_prop_settings.jsp" />  
+   </definition>
+   
+   <definition name="view_prop_settings" extends="base-definition">  
+       <put-attribute name="title" value="Display Property Master Details" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/property/view_prop_settings.jsp" />  
+   </definition>
+ 
+  <definition name="read_prop_settings" extends="base-definition">  
+       <put-attribute name="title" value="Readonly Property Master Details" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/property/read_prop_settings.jsp" />  
+   </definition>
+   
  
 </tiles-definitions>

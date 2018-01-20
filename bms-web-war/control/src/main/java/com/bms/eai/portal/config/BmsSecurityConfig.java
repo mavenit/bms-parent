@@ -116,9 +116,10 @@ public class BmsSecurityConfig extends WebSecurityConfigurerAdapter {
 		DelegatingRequestMatcherHeaderWriter headerWriter =	new DelegatingRequestMatcherHeaderWriter(matcher,new XFrameOptionsHeaderWriter());
 		 
 		http
-			.csrf().csrfTokenRepository(csrfTokenRepository())
-				//.disable()
-			.and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+			.csrf()
+			//.csrfTokenRepository(csrfTokenRepository())
+				.disable()
+			//.and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 				.headers()
 				.referrerPolicy(ReferrerPolicy.SAME_ORIGIN)
 				.and()
@@ -143,19 +144,19 @@ public class BmsSecurityConfig extends WebSecurityConfigurerAdapter {
         	// This is where we configure our login form.
 	        .formLogin()
 	            .loginPage(PageConstants.LOGIN)				// login-page: the page that contains the login screen
-	            .loginProcessingUrl(PageConstants.LOGIN)		// login-processing-url: this is the URL to which the login form should be submitted
-	            .defaultSuccessUrl(PageConstants.HOME)	// default-target-url: the URL to which the user will be redirected if they login successfully
-	            .successHandler(authSuccessHandler())				// success-url: Handler to redirected the user to any specific page
-	            .failureUrl(PageConstants.LOGIN_ERR)			// authentication-failure-url: the URL to which the user will be redirected if they fail login
-	            .usernameParameter("username")						// username-parameter: the name of the request parameter which contains the username
-	            .passwordParameter("password")						// password-parameter: the name of the request parameter which contains the password
+	            .loginProcessingUrl(PageConstants.LOGIN)	// login-processing-url: this is the URL to which the login form should be submitted
+	            .defaultSuccessUrl(PageConstants.HOME)		// default-target-url: the URL to which the user will be redirected if they login successfully
+	            .successHandler(authSuccessHandler())		// success-url: Handler to redirected the user to any specific page
+	            .failureUrl(PageConstants.LOGIN_ERR)		// authentication-failure-url: the URL to which the user will be redirected if they fail login
+	            .usernameParameter("username")				// username-parameter: the name of the request parameter which contains the username
+	            .passwordParameter("password")				// password-parameter: the name of the request parameter which contains the password
 	            .permitAll() 
 	   .and().sessionManagement()	   	   
 	   			.invalidSessionUrl(PageConstants.LOGIN)
 	   			.sessionCreationPolicy(SessionCreationPolicy.NEVER)
 	   			.sessionFixation().migrateSession()
-	   			.maximumSessions(1)									// session-management/concurrency-control@max-sessions
-	   			.maxSessionsPreventsLogin(true)						// session-management/concurrency-control@error-if-maximum-exceeded
+	   			.maximumSessions(1)								// session-management/concurrency-control@max-sessions
+	   			.maxSessionsPreventsLogin(true)					// session-management/concurrency-control@error-if-maximum-exceeded
 	   			.expiredUrl(PageConstants.LOGIN)				// session-management/concurrency-control@expired-url
 	   			.sessionRegistry(sessionRegistry())
 	   .and()
@@ -177,11 +178,11 @@ public class BmsSecurityConfig extends WebSecurityConfigurerAdapter {
         return sessionRegistry;
     }
 	
-	@Bean
+	/*@Bean
 	 public CsrfTokenRepository csrfTokenRepository() {
 		 HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
 		 repository.setHeaderName("X-XSRF-TOKEN");
 		 return repository;
-	} 
+	} */
 	
 }

@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -20,9 +23,29 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.bms.eai.portal.*"})
+@ComponentScan({"com.bms.eai.*"})
 public class BmsWebAppConfig extends WebMvcConfigurerAdapter {
 
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setMaxUploadSize(100000);
+	    return multipartResolver;
+	    		//new CommonsMultipartResolver();
+	}
+	
+	@Bean
+    @Order(0)
+    public MultipartFilter multipartFilter() {
+        MultipartFilter multipartFilter = new MultipartFilter();
+        multipartFilter.setMultipartResolverBeanName("multipartResolver");
+        return multipartFilter;
+    }
+	
+	/*@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+	    return new StandardServletMultipartResolver();
+	}*/
 	
 	@Bean
 	public MessageSource messageSource() {

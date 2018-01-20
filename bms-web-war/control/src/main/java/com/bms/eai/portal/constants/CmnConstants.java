@@ -13,6 +13,10 @@ public static final Boolean useRestService = true; // Back-end Service - return 
 	public static final String EMPTY_STRING 				= "";
 	public static final String SPACE 						= " ";
 	public static final String COMMA 						= ",";
+	public static final String LEFT_PARANTHESES				= "{";
+	public static final String RIGHTT_PARANTHESES			= "}";
+	public static final String LEFT_BRACE 					= "(";
+	public static final String RIGHT_BRACE 					= ")";
 	
 	public static final Integer ZERO 						= 0;
 	
@@ -49,6 +53,21 @@ public static final Boolean useRestService = true; // Back-end Service - return 
 	public static final String FILE_SYS_RESOURCE			= File.separator + PROPERTY_FILENAME + PROPERTIES_EXT;
 	public static final String PROPERTY_CLASSPATH			= "classpath:" + PROPERTY_FILENAME;
 	public static final String FILE_PFX						= "file:";
+	
+	public static final String MAV_ALERT_TYPE = "alertType";
+	public static final String MAV_ALERT_MSG = "alertMessage";
+	
+	public static final String MAV_ERROR_CODE = "error";
+	public static final String MAV_ERROR_INFO = "info";
+	public static final String MAV_ERROR_WARN = "warning";
+	public static final String MAV_SUCCESS = "success";
+	
+	public static final String MAV_SUCCESS_MSG_ID = "ID ";
+	public static final String MAV_SUCCESS_PERSIST_MSG = "Successfully save the record";
+	public static final String MAV_SUCCES_VIEW_MSG = "View the record";
+	public static final String MAV_SUCCESS_UPDATE_MSG = "Successfully update the record";
+	public static final String MAV_SUCCESS_DELETE_MSG = "Successfully delete the record";
+	public static final String MAV_ERROR_MSG = "Error occured during processing transaction,Kindly contact system admin!";
 	
 	
 }

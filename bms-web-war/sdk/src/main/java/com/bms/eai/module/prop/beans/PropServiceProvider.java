@@ -3,6 +3,7 @@ package com.bms.eai.module.prop.beans;
 import java.util.Date;
 import java.util.List;
 
+import com.bms.eai.module.core.AbstractSdkEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("PropServiceProvider")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true) 
-public class PropServiceProvider  {
+public class PropServiceProvider extends AbstractSdkEntity  {
 
 	@JsonProperty("propAnnualReminders")
 	private PropAnnualReminders propAnnualReminders;
@@ -190,6 +191,18 @@ public class PropServiceProvider  {
 
 	public void setPropAssetses(List<PropAssets> propAssetses) {
 		this.propAssetses = propAssetses;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

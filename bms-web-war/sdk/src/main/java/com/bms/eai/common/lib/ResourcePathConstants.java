@@ -13,13 +13,24 @@ public interface ResourcePathConstants {
 	public static final String HTTP_COLUMN = ":";
 	public static final String HTTP_SLASH = "/";
 	
-	public static final String HTTP_PROP_CONTEXT_PATH ="bms-property";
+	public static final String HTTP_PROP_CONTEXT_PATH ="propertydetails";
+	public static final String HTTP_STATIC_CONTEXT_PATH ="cmndetails";
 	
 	public static final String CREATE = "create";
 	public static final String UPDATE = "update";
 	public static final String DELETE = "delete";
 	public static final String LOADBYID = "load";
+	public static final String LOADBYPAGE = "loadpage";
+	public static final String LOADBYCOUNTRY = "load/country";
+	public static final String LOADBYNAME = "/load/name";
 	public static final String LOADALL = "loadall";
+	
+	public static final String OPERATION_NAME = "CURD";
+	public static final String SERVICE_NAME = "SERVICENAME";
+	public static final String ID = "ID";
+	public static final String NAME = "NAME";
+	public static final String BEAN = "BEAN";
+	
 	
 	// =========== CONFIGURE THE RESOURCE PATH FOR PROPERTY MASTER DETAILS =========== //
 	

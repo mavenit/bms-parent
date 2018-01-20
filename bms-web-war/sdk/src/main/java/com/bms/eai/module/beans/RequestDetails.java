@@ -6,12 +6,12 @@ import org.springframework.http.HttpMethod;
  * @author kul_sudhakar
  *
  */
-public class RequestDetails {
+public class RequestDetails /*extends FileUploadDetails*/ {
 
 	private String url;
 	private HttpMethod requestType;
-
 	private String uriPathVariable;
+	private FileUploadDetails fileUploadDetails;
 	
 	public RequestDetails(String url, HttpMethod requestType) {
 		super();
@@ -50,9 +50,17 @@ public class RequestDetails {
 		this.uriPathVariable = uriPathVariable;
 	}
 
+	public FileUploadDetails getFileUploadDetails() {
+		return fileUploadDetails;
+	}
+
+	public void setFileUploadDetails(FileUploadDetails fileUploadDetails) {
+		this.fileUploadDetails = fileUploadDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "RequestDetails [url=" + url + ", requestType=" + requestType + ",uriPathVariable="+uriPathVariable+"]";
 	}
-	
+
 }

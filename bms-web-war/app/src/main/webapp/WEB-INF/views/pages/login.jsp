@@ -47,11 +47,13 @@
                     <div class="panel-body">
                         <form action="${pageContext.request.contextPath}/login" method="post" role="form">
                             <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                <div class="input-group">
+                                	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input id="email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <div class="input-group">
+                                	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input id="password" class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -62,7 +64,7 @@
                                 <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
                                 <input type="submit" value="Login" class="btn btn-lg btn-success btn-block" />
                             </fieldset>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
                         </form>
                     </div>
                 </div>

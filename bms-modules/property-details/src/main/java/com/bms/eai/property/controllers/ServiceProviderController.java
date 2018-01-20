@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bms.eai.cmn.error.ServiceException;
 import com.bms.eai.common.model.core.ICrudService;
+import com.bms.eai.common.model.entity.PropAttachments;
 import com.bms.eai.common.model.entity.PropCountry;
 import com.bms.eai.common.model.entity.PropState;
 import com.bms.eai.common.model.service.IPropCountryService;
@@ -35,7 +36,6 @@ import com.bms.eai.constants.UserStatus;
 import com.bms.eai.lib.DateUtils;
 import com.bms.eai.lib.ObjectUtils;
 import com.bms.eai.property.model.entity.PropAnnualReminders;
-import com.bms.eai.property.model.entity.PropAttachments;
 import com.bms.eai.property.model.entity.PropContactDetails;
 import com.bms.eai.property.model.entity.PropServiceProvider;
 import com.bms.eai.property.model.service.IPropDurationService;
@@ -252,7 +252,7 @@ public class ServiceProviderController extends AbstractModelController<PropServi
 
 	
 	@Override
-	public ResponseEntity<JsonNode> processCreate(@Validated @Valid @RequestBody PropServiceProvider reqJson) throws ServiceException {
+	public ResponseEntity<JsonNode> processCreate(@Validated @Valid @RequestBody PropServiceProvider reqJson,@RequestParam("file") MultipartFile multipartFile) throws ServiceException {
 		return null;
 	}
 	@Override

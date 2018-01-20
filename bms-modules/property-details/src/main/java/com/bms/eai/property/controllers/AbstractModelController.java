@@ -19,7 +19,6 @@ import com.bms.eai.common.model.entity.PropState;
 import com.bms.eai.common.model.entity.PropType;
 import com.bms.eai.constants.CmnConstants;
 import com.bms.eai.lib.DateUtils;
-import com.bms.eai.lib.JsonApiUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -58,7 +57,9 @@ public abstract class AbstractModelController<T extends AbstractEntity<T,ID>, ID
 			return new ResponseEntity<JsonNode>(JsonNodeFactory.instance.nullNode(), HttpStatus.NO_CONTENT);
 		}
 		JsonResponseBean jrb = this.generateResponseBean(statusCode, statusMessage, entityObj);
-		return new ResponseEntity<JsonNode>(JsonApiUtil.convertValue(jrb).get(), HttpStatus.OK);
+		
+		return new ResponseEntity<JsonNode>(objectMapper.convertValue(jrb, JsonNode.class), HttpStatus.OK);
+		//return new ResponseEntity<JsonNode>(JsonApiUtil.convertValue(jrb).get(), HttpStatus.OK);
 	}
 
 	protected PropState loadByStateId(final String id) throws ServiceException {

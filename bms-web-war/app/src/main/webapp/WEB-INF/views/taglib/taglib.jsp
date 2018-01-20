@@ -9,6 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"  %>
 <%@taglib prefix="display_el" uri="http://displaytag.sf.net/el"  %>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/service_page.css"/>
@@ -33,6 +34,9 @@ function disable_right_click(){
   */
 
 </script>
+<c:set var="select_value"><spring:message code="common.select.value"/></c:set>
+<c:set var="value_jmb"><spring:message code="common.value.jmb"/></c:set>
+<c:set var="value_mc"><spring:message code="common.value.mc"/></c:set>
 <%
 if( !response.isCommitted() )
 {

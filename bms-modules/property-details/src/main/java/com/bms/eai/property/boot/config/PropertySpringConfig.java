@@ -21,6 +21,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.SpringHandlerInstantiator;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -49,6 +50,13 @@ public class PropertySpringConfig extends WebMvcConfigurerAdapter {
 	@Autowired
 	private ApplicationContext appCtx;
 	
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setMaxUploadSize(100000);
+	    return new CommonsMultipartResolver();
+	}
+	
 	/*@Bean()
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
@@ -66,11 +74,21 @@ public class PropertySpringConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ObjectMapper objectMapper() {
 	   ObjectMapper objectMapper = new ObjectMapper();
-	   objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	   objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 	   objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
 	   objectMapper.configure(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS, false);
 	   objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
 	   objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+	   
+	   objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+       objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
+       objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+       objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+       objectMapper.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true);
+       objectMapper.setHandlerInstantiator(handlerInstantiator());
+       objectMapper.setDateFormat(new SimpleDateFormat(DateUtils.DATE_FORMAT));
+      //objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+       objectMapper.setTimeZone(TimeZone.getDefault());
 	   return objectMapper;
 	}
 	
@@ -94,10 +112,11 @@ public class PropertySpringConfig extends WebMvcConfigurerAdapter {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, false);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+        objectMapper.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true);
         objectMapper.setHandlerInstantiator(handlerInstantiator());
         objectMapper.setDateFormat(new SimpleDateFormat(DateUtils.DATE_FORMAT));
+        //objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
         objectMapper.setTimeZone(TimeZone.getDefault());
         Map<Class, Class> entityMixInMappingConfigs = getEntityMixInMappingConfigs();
         entityMixInMappingConfigs.forEach(

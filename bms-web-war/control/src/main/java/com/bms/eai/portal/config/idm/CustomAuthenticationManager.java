@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.bms.eai.portal.core.AbstractController;
+import com.bms.eai.portal.dto.UserProfileDto;
 import com.bms.eai.portal.lib.CmnUtil;
 import com.bms.eai.portal.model.LoginBean;
 import com.bms.eai.portal.model.UserProfile;
@@ -26,6 +28,9 @@ import com.bms.eai.portal.model.UserProfile;
 public class CustomAuthenticationManager extends AbstractController implements AuthenticationManager {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private UserProfileDto userProfileDto;
 	
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -44,7 +49,7 @@ public class CustomAuthenticationManager extends AbstractController implements A
 			throw new BadCredentialsException("Invalid username or password.");
 		}
 		else {
-			
+	
 		}
 				
 	/*	try {
@@ -64,8 +69,6 @@ public class CustomAuthenticationManager extends AbstractController implements A
 				throw new BadCredentialsException(messageService.getMessage("lbl.err.inv.pwd") + (errorCode != null ? " [ " + errorCode + " ]" : ""));
 			}*/
 		//}
-		
-	
 		
 		
 		/*if(login == null || login.getToken() == null) {
